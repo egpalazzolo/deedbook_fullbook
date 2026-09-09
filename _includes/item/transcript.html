@@ -1,0 +1,15 @@
+{% if page.object_transcript %}
+<div class="card my-3">
+  <div class="card-body">
+    <h3 class="card-title h4">Transcript</h3>
+    <div class="transcript-content" style="max-height: 500px; overflow-y: auto;">
+      {% if page.object_transcript contains '/' %}
+        {% capture transcript_path %}{{ page.object_transcript | remove_first: '/' }}{% endcapture %}
+        {% include_relative {{ transcript_path }} %}
+      {% else %}
+        {{ page.object_transcript | markdownify }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
