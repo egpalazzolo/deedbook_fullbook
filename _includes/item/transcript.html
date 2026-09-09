@@ -4,8 +4,9 @@
     <h3 class="card-title h4">Transcript</h3>
     <div class="transcript-content" style="max-height: 500px; overflow-y: auto;">
       {% if page.object_transcript contains '/' %}
-        {% capture transcript_path %}{{ page.object_transcript | remove_first: '/' }}{% endcapture %}
-        {% include_relative {{ transcript_path }} %}
+        {% assign transcript_location = page.object_transcript | remove_first: '/' | prepend: 'items/' %}
+        {% assign transcript = site.pages | where: 'path', transcript_location | first %}
+        {{ transcript.content | markdownify }}
       {% else %}
         {{ page.object_transcript | markdownify }}
       {% endif %}

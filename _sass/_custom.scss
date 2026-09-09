@@ -2,3 +2,38 @@
     Put your custom SCSS here! 
     This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
 */
+
+.transcript-content table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.transcript-content th,
+.transcript-content td {
+    border: 1px solid #adb5bd;
+    padding: 0.625rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.transcript-content th:nth-child(1),
+.transcript-content td:nth-child(1) {
+    width: 12%;
+}
+
+.transcript-content th:nth-child(2),
+.transcript-content td:nth-child(2) {
+    width: 14%;
+}
+
+.transcript-content th:nth-child(3),
+.transcript-content td:nth-child(3) {
+    width: 44%;
+}
+
+.transcript-content th:nth-child(4),
+.transcript-content td:nth-child(4) {
+    width: 30%;
+}

@@ -23,7 +23,7 @@
     <div class="card card-body text-start">
         {% assign transcript_type = page.object_transcript | slice: 0,1 %}
         {% if transcript_type == '/' %}
-        {% assign transcript_location = page.object_transcript | remove_first: '/' %}
+        {% assign transcript_location = page.object_transcript | remove_first: '/' | prepend: 'items/' %}
         {% assign transcript = site.pages | where: 'path', transcript_location | first %}
         {{ transcript.content | markdownify }}
         {% else %}
