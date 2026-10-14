@@ -1,6 +1,6 @@
 { 
     "title": "CollectionBuilder CSV",
-    "url": "http://localhost:4000/",
+    "url": "http://localhost:4000/deedbook_fullbook/",
     "image": "", 
     "description": "CollectionBuilder-CSV is a template for creating digital collection exhibits using static web technology.",
     "publisher": { 
@@ -14,7 +14,7 @@
         "application/pdf": "1"
         
     },
-    "data": "http://localhost:4000/assets/data/datapackage.json",
-    "last_build_date": "2026-09-09"
+    "data": "http://localhost:4000/deedbook_fullbook/assets/data/datapackage.json",
+    "last_build_date": "2026-10-07"
 }
 

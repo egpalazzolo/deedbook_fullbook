@@ -4,7 +4,7 @@
     "title": "CollectionBuilder CSV Data",
     "description": "Metadata and data derived from CollectionBuilder CSV. CollectionBuilder-CSV is a template for creating digital collection exhibits using static web technology.",
     "keywords":  ["idaho"," history"," inland northwest"],
-    "homepage": "http://localhost:4000/",
+    "homepage": "http://localhost:4000/deedbook_fullbook/",
     "contributors": [
         {
             "title": "Center for Digital Inquiry and Learning (CDIL)",
