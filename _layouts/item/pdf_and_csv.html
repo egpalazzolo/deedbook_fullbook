@@ -49,12 +49,16 @@ layout: item/item-page-base
 
 <!-- Bulletproof JavaScript Subdirectory CSV Parser -->
 <script>
+    
 document.addEventListener("DOMContentLoaded", function() {
-  const csvUrl = "{{ page.object_transcript | relative_url }}";
+  // Added a cache-busting timestamp tag to the URL string
+  const baseCsvUrl = "{{ page.object_transcript | relative_url }}";
+  const csvUrl = baseCsvUrl + "?cb=" + new Date().getTime();
+  
   const headEl = document.getElementById("csv-table-head");
   const bodyEl = document.getElementById("csv-table-body");
   
-  if (!csvUrl || csvUrl === "" || csvUrl === "/") {
+  if (!baseCsvUrl || baseCsvUrl === "" || baseCsvUrl === "/") {
     bodyEl.innerHTML = '<tr><td class="p-3 text-warning">No CSV file path provided in your item metadata fields.</td></tr>';
     return;
   }

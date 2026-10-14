@@ -164,12 +164,16 @@
 
 <!-- Bulletproof JavaScript Subdirectory CSV Parser -->
 <script>
+    
 document.addEventListener("DOMContentLoaded", function() {
-  const csvUrl = "/deedbook_fullbook/objects/csvs/fii_db00000A.csv";
+  // Added a cache-busting timestamp tag to the URL string
+  const baseCsvUrl = "/deedbook_fullbook/objects/csvs/fii_db00000A.csv";
+  const csvUrl = baseCsvUrl + "?cb=" + new Date().getTime();
+  
   const headEl = document.getElementById("csv-table-head");
   const bodyEl = document.getElementById("csv-table-body");
   
-  if (!csvUrl || csvUrl === "" || csvUrl === "/") {
+  if (!baseCsvUrl || baseCsvUrl === "" || baseCsvUrl === "/") {
     bodyEl.innerHTML = '<tr><td class="p-3 text-warning">No CSV file path provided in your item metadata fields.</td></tr>';
     return;
   }
