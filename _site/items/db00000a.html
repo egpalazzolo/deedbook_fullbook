@@ -123,7 +123,7 @@
   <!-- 1. PDF Viewer Card -->
   <div class="card mb-4 shadow-sm">
     <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-      <h6 class="m-0 font-weight-bold text-dark">Document PDF</h6>
+      <h6 class="m-0 font-weight-bold text-dark">Archival Resource</h6>
       <a href="/deedbook_fullbook/objects/pdfs/db00000A_mini.pdf" class="btn btn-sm btn-primary" download>
         <svg class="bi icon-sprite" role="img" aria-label="Download PDF" width="16" height="16"><use xlink:href="/deedbook_fullbook/assets/lib/cb-icons.svg#icon-download"/></svg> Download PDF
       </a>
@@ -141,9 +141,9 @@
   <!-- 2. CSV Table Card -->
   <div class="card mb-4 shadow-sm">
     <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-      <h6 class="m-0 font-weight-bold text-dark">Associated CSV Data</h6>
+      <h6 class="m-0 font-weight-bold text-dark">Book Contents</h6>
       <a href="/deedbook_fullbook/objects/csvs/fii_db00000A.csv" class="btn btn-sm btn-outline-primary" download>
-         Download CSV
+         Download Book Contents (CSV)
       </a>
     </div>
     <div class="card-body p-0">
@@ -164,7 +164,55 @@
 
 <!-- Bulletproof JavaScript Subdirectory CSV Parser -->
 <script>
-    
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let field = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const character = text[i];
+
+    if (character === '"') {
+      if (inQuotes && text[i + 1] === '"') {
+        field += '"';
+        i++;
+      } else if (inQuotes) {
+        inQuotes = !inQuotes;
+      } else if (field === "") {
+        inQuotes = true;
+      } else {
+        field += character;
+      }
+    } else if (character === "," && !inQuotes) {
+      row.push(field);
+      field = "";
+    } else if ((character === "\n" || character === "\r") && !inQuotes) {
+      row.push(field);
+      rows.push(row);
+      row = [];
+      field = "";
+      if (character === "\r" && text[i + 1] === "\n") i++;
+    } else if (character === "\r" && inQuotes) {
+      field += "\n";
+      if (text[i + 1] === "\n") i++;
+    } else {
+      field += character;
+    }
+  }
+
+  if (inQuotes) {
+    throw new Error("CSV contains an unterminated quoted field.");
+  }
+
+  if (field !== "" || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
+
+  return rows;
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   // Added a cache-busting timestamp tag to the URL string
   const baseCsvUrl = "/deedbook_fullbook/objects/csvs/fii_db00000A.csv";
@@ -191,56 +239,62 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
       }
 
-      // Universal split by newline tag
-      const rows = text.split("\n");
-      let headHtml = "<tr>";
-      let bodyHtml = "";
-      let firstRowIndex = 0;
+      const rows = parseCsv(text.replace(/^\uFEFF/, ""));
+      const firstRowIndex = rows.findIndex(row => row.some(cell => cell.trim() !== ""));
 
-      // Clear away accidental blank lines at the beginning of the file
-      while (firstRowIndex < rows.length && rows[firstRowIndex].trim() === "") {
-        firstRowIndex++;
-      }
-
-      if (firstRowIndex >= rows.length) {
+      if (firstRowIndex === -1) {
         bodyEl.innerHTML = '<tr><td class="p-3 text-info">No rows found in this file.</td></tr>';
         return;
       }
 
-      // Build out Table Columns
-      const headers = rows[firstRowIndex].split(",");
-      headers.forEach(header => {
-        headHtml += `<th scope="col" class="py-2">${header.replace(/^"|"$/g, '').trim()}</th>`;
+      const headerRow = document.createElement("tr");
+      rows[firstRowIndex].forEach(header => {
+        const th = document.createElement("th");
+        th.scope = "col";
+        th.className = "py-2";
+        th.textContent = header.trim();
+        headerRow.appendChild(th);
       });
-      headHtml += "</tr>";
+      headEl.replaceChildren(headerRow);
 
-      // Build out Data Cells
-      for (let i = firstRowIndex + 1; i < rows.length; i++) {
-        let rawRow = rows[i].trim();
-        if (rawRow === "") continue; 
-        
-        // Clean any residual Windows carriage returns without regex syntax hacks
-        let cleanRow = rawRow.replace("\(\r\)", "");
-        
-        let cells = cleanRow.split(",");
-        bodyHtml += "<tr>";
+      bodyEl.replaceChildren();
+      rows.slice(firstRowIndex + 1).forEach(cells => {
+        if (cells.every(cell => cell.trim() === "")) return;
+
+        const tableRow = document.createElement("tr");
         cells.forEach(cell => {
-          bodyHtml += `<td class="py-1 px-2">${cell.replace(/^"|"$/g, '').trim()}</td>`;
+          const td = document.createElement("td");
+          td.className = "py-1 px-2";
+          td.textContent = cell.trim();
+          tableRow.appendChild(td);
         });
-        bodyHtml += "</tr>";
-      }
-
-      headEl.innerHTML = headHtml;
-      bodyEl.innerHTML = bodyHtml;
+        bodyEl.appendChild(tableRow);
+      });
     })
     .catch(error => {
       console.error("CSV Parser Error:", error);
       headEl.innerHTML = '<tr><th class="table-danger text-danger">Connection Error</th></tr>';
-      bodyEl.innerHTML = `<tr><td class="p-3 text-danger font-weight-bold">
-        Failed to load the spreadsheet component.<br>
-        <span class="text-secondary font-weight-normal">Reason: ${error.message}</span><br><br>
-        <span class="text-dark font-weight-bold">Target Path Checked:</span> <code class="text-danger">${csvUrl}</code>
-      </td></tr>`;
+      const errorCell = document.createElement("td");
+      errorCell.className = "p-3 text-danger font-weight-bold";
+      errorCell.append("Failed to load the spreadsheet component.");
+      errorCell.appendChild(document.createElement("br"));
+      const reason = document.createElement("span");
+      reason.className = "text-secondary font-weight-normal";
+      reason.textContent = `Reason: ${error.message}`;
+      errorCell.appendChild(reason);
+      errorCell.appendChild(document.createElement("br"));
+      errorCell.appendChild(document.createElement("br"));
+      const pathLabel = document.createElement("span");
+      pathLabel.className = "text-dark font-weight-bold";
+      pathLabel.textContent = "Target Path Checked: ";
+      errorCell.appendChild(pathLabel);
+      const path = document.createElement("code");
+      path.className = "text-danger";
+      path.textContent = csvUrl;
+      errorCell.appendChild(path);
+      const errorRow = document.createElement("tr");
+      errorRow.appendChild(errorCell);
+      bodyEl.replaceChildren(errorRow);
     });
 });
 </script>
