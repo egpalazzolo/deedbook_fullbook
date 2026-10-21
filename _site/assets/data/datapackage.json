@@ -1,14 +1,14 @@
 {
     "profile": "data-package",
-    "name": "collectionbuilder-csv-data",
-    "title": "CollectionBuilder CSV Data",
-    "description": "Metadata and data derived from CollectionBuilder CSV. CollectionBuilder-CSV is a template for creating digital collection exhibits using static web technology.",
-    "keywords":  ["idaho"," history"," inland northwest"],
+    "name": "fayette-county-clerk-digital-access-project-data",
+    "title": "Fayette County Clerk Digital Access Project Data",
+    "description": "Metadata and data derived from Fayette County Clerk Digital Access Project. Curating digitized archival records from the Fayette County Clerk&#39;s Office, Lexington, Kentucky for user access.",
+    "keywords":  ["kentucky"," land records"," archives"," fayette county"],
     "homepage": "http://localhost:4000/deedbook_fullbook/",
     "contributors": [
         {
-            "title": "Center for Digital Inquiry and Learning (CDIL)",
-            "path": "https://cdil.lib.uidaho.edu/",
+            "title": "Fayette County Clerk Digital Access Project",
+            "path": "https://fayettekyclerk.gov/landrecords/digital-access-project/",
             "role": "author"
         }
     ],
@@ -25,7 +25,7 @@
         {
             "name": "facets-json",
             "path": "facets.json",
-            "title": "CollectionBuilder CSV Metadata Facets",
+            "title": "Fayette County Clerk Digital Access Project Metadata Facets",
             "description":"Unique values and counts of metadata facet fields.",
             "format":"json",
             "profile": "data-resource"
@@ -34,7 +34,7 @@
         {
             "name": "subject-csv",
             "path": "subjects.csv",
-            "title": "CollectionBuilder CSV metadata subject counts in csv",
+            "title": "Fayette County Clerk Digital Access Project metadata subject counts in csv",
             "description": "Unique values and counts of metadata subject fields.",
             "format":"csv",
             "profile":"tabular-data-resource",
@@ -61,7 +61,7 @@
         {
             "name": "subjects-json",
             "path": "subjects.json",
-            "title": "CollectionBuilder CSV  metadata subject counts in json",
+            "title": "Fayette County Clerk Digital Access Project  metadata subject counts in json",
             "description":"Unique values and counts of metadata subject fields.",
             "format":"json",
             "profile": "data-resource"
@@ -70,7 +70,7 @@
         {
             "name": "locations-csv",
             "path": "subjects.csv",
-            "title": "CollectionBuilder CSV metadata location counts in csv",
+            "title": "Fayette County Clerk Digital Access Project metadata location counts in csv",
             "description": "Unique values and counts of metadata location fields.",
             "format":"csv",
             "profile":"tabular-data-resource",
@@ -97,7 +97,7 @@
         {
             "name": "locations-json",
             "path": "locations.json",
-            "title": "CollectionBuilder CSV metadata location counts in json",
+            "title": "Fayette County Clerk Digital Access Project metadata location counts in json",
             "description":"Unique values and counts of metadata location fields.",
             "format":"json",
             "profile": "data-resource"
@@ -106,7 +106,7 @@
         {
             "name": "geodata-json",
             "path": "geodata.json",
-            "title": "CollectionBuilder CSV geographic metadata",
+            "title": "Fayette County Clerk Digital Access Project geographic metadata",
             "description": "Geojson data containing all objects with lat-longs and associated descriptive metadata.",
             "format":"json",
             "profile": "data-resource"
@@ -115,7 +115,7 @@
         {
             "name": "timeline-json",
             "path": "timelinejs.json",
-            "title": "CollectionBuilder CSV timeline metadata",
+            "title": "Fayette County Clerk Digital Access Project timeline metadata",
             "description": "Time-based metadata formatted for TimelineJS or other applications.",
             "format":"json",
             "profile": "data-resource"
@@ -123,16 +123,16 @@
         {
             "name": "metadata-csv",
             "path": "metadata.csv",
-            "title": "CollectionBuilder CSV full metadata in csv",
-            "description": "Complete metadata export for CollectionBuilder CSV objects.",
+            "title": "Fayette County Clerk Digital Access Project full metadata in csv",
+            "description": "Complete metadata export for Fayette County Clerk Digital Access Project objects.",
             "format":"csv",
             "profile":"data-resource"
         },
         {
             "name": "metadata-json",
             "path": "metadata.json",
-            "title": "CollectionBuilder CSV full metadata in json",
-            "description": "Complete metadata export for CollectionBuilder CSV objects.",
+            "title": "Fayette County Clerk Digital Access Project full metadata in json",
+            "description": "Complete metadata export for Fayette County Clerk Digital Access Project objects.",
             "format":"json",
             "profile":"data-resource"
         }

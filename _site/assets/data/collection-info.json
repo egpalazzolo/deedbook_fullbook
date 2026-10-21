@@ -1,12 +1,12 @@
 { 
-    "title": "CollectionBuilder CSV",
+    "title": "Fayette County Clerk Digital Access Project",
     "url": "http://localhost:4000/deedbook_fullbook/",
     "image": "", 
-    "description": "CollectionBuilder-CSV is a template for creating digital collection exhibits using static web technology.",
+    "description": "Curating digitized archival records from the Fayette County Clerk's Office, Lexington, Kentucky for user access.",
     "publisher": { 
-        "name": "Center for Digital Inquiry and Learning (CDIL)", 
-        "url": "https://cdil.lib.uidaho.edu/", 
-        "logo": "https://www.lib.uidaho.edu/collectionbuilder/cdil-black.png" 
+        "name": "Fayette County Clerk Digital Access Project", 
+        "url": "https://fayettekyclerk.gov/landrecords/digital-access-project/", 
+        "logo": "" 
     },
     "date_start": "1781",
     "date_end": "1781",
